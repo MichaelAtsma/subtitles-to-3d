@@ -5,23 +5,45 @@ param(
 
 $ErrorActionPreference = "Stop"
 
+function Invoke-CheckedCommand {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Command,
+
+        [Parameter(Mandatory = $false)]
+        [string[]]$Arguments = @()
+    )
+
+    & $Command @Arguments | Out-Host
+    if ($LASTEXITCODE -ne 0) {
+        throw "Command failed with exit code ${LASTEXITCODE}: $Command $($Arguments -join ' ')"
+    }
+}
+
 $projectRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 Set-Location $projectRoot
 
-$pythonExe = Join-Path $projectRoot ".venv\Scripts\python.exe"
-if (-not (Test-Path $pythonExe)) {
-    throw "Virtual environment Python not found at $pythonExe"
+$venvCandidates = @(
+    (Join-Path $projectRoot ".venv\Scripts\python.exe"),
+    (Join-Path (Split-Path -Parent $projectRoot) ".venv\Scripts\python.exe")
+)
+
+$pythonExe = $venvCandidates | Where-Object { Test-Path $_ } | Select-Object -First 1
+if (-not $pythonExe) {
+    throw "Virtual environment Python not found. Checked: $($venvCandidates -join ', ')"
 }
 
 Write-Host "Using Python:" $pythonExe
 
-& $pythonExe -m pip install pyinstaller | Out-Host
+Invoke-CheckedCommand -Command $pythonExe -Arguments @("-m", "pip", "install", "-r", "requirements.txt")
+Invoke-CheckedCommand -Command $pythonExe -Arguments @("-m", "pip", "install", "pyinstaller")
+Invoke-CheckedCommand -Command $pythonExe -Arguments @("-c", "import PyQt6, pysubs2, cv2, PyInstaller; print('Build environment OK: all required modules are importable.')")
 
 if (-not $SkipTests) {
-    & $pythonExe -m pytest -q tests | Out-Host
+    Invoke-CheckedCommand -Command $pythonExe -Arguments @("-m", "pytest", "-q", "tests")
 }
 
-& $pythonExe -m PyInstaller --noconfirm subtitle_to_3d.spec | Out-Host
+Invoke-CheckedCommand -Command $pythonExe -Arguments @("-m", "PyInstaller", "--noconfirm", "subtitle_to_3d.spec")
 
 if ($SkipInstaller) {
     Write-Host "Installer build skipped."
@@ -40,4 +62,4 @@ if (-not $isccExe) {
     exit 0
 }
 
-& $isccExe (Join-Path $projectRoot "builds\installer\SubtitleTo3DAss.iss") | Out-Host
+Invoke-CheckedCommand -Command $isccExe -Arguments @((Join-Path $projectRoot "builds\installer\SubtitleTo3DAss.iss"))

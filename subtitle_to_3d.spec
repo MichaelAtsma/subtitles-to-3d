@@ -13,7 +13,7 @@ from PyInstaller.utils.win32.versioninfo import (
 
 APP_NAME = "Subtitle to 3D"
 APP_DIST_NAME = "SubtitleTo3D"
-APP_VERSION = "1.0.0"
+APP_VERSION = "0.1.0"
 APP_COMPANY = "Michael Atsma"
 APP_DESCRIPTION = "Convert subtitles into 3D-compatible ASS files"
 APP_EXE_NAME = f"{APP_DIST_NAME}-{APP_VERSION}"

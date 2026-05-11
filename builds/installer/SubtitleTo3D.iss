@@ -1,7 +1,7 @@
 #define AppName "Subtitle to 3D"
-#define AppVersion "1.0.0"
+#define AppVersion "0.1.0"
 #define AppPublisher "Michael Atsma"
-#define AppExeName "SubtitleTo3D-1.0.0.exe"
+#define AppExeName "SubtitleTo3D-0.1.0.exe"
 #define AppDistDir "..\..\dist\SubtitleTo3D"
 
 [Setup]

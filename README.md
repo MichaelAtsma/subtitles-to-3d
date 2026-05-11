@@ -113,6 +113,33 @@ The installer output will be written here:
 
 - `builds\installer\output\SubtitleTo3DAss-Setup-1.0.0.exe`
 
+## Troubleshooting
+
+### EXE opens with `ModuleNotFoundError: No module named 'PyQt6'`
+
+Cause:
+
+- The executable was built with a different Python environment (often a global `pyinstaller`) that does not have your project dependencies installed.
+
+Fix:
+
+```powershell
+.venv\Scripts\python.exe -m pip install -r requirements.txt
+.venv\Scripts\python.exe -m pip install pyinstaller
+.venv\Scripts\python.exe -m PyInstaller --noconfirm subtitle_to_3d.spec
+```
+
+Then run:
+
+- `dist\SubtitleTo3DAss\SubtitleTo3DAss-1.0.0.exe`
+
+Optional checks:
+
+```powershell
+where pyinstaller
+.venv\Scripts\python.exe -c "import PyQt6, pysubs2, cv2; print('ok')"
+```
+
 ## Output naming
 
 Default output names are generated next to each source subtitle file:
