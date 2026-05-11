@@ -58,7 +58,7 @@ Important:
 
 The packaged app will be created here:
 
-- `dist\SubtitleTo3DAss\SubtitleTo3DAss-1.0.0.exe`
+- `dist\SubtitleTo3D\SubtitleTo3D-1.0.0.exe`
 
 Notes:
 
@@ -66,7 +66,7 @@ Notes:
 - The packaged executable now includes Windows version metadata.
 - The runtime asset loader in `main.py` supports both normal Python runs and PyInstaller builds.
 - `opencv-python` can make the build fairly large. That is normal for a self-contained GUI executable.
-- If you want to share the app, send the whole `dist\SubtitleTo3DAss` folder, not just the `.exe` file.
+- If you want to share the app, send the whole `dist\SubtitleTo3D` folder, not just the `.exe` file.
 
 ## One-Click Build
 
@@ -90,7 +90,7 @@ What it does:
 If you want a single-file executable instead of a folder build, you can also run:
 
 ```powershell
-.venv\Scripts\python.exe -m PyInstaller --noconfirm --onefile --windowed --name SubtitleTo3DAss --icon src\gui\assets\app_icon.ico --add-data "src\gui\assets\app_icon.png;src\gui\assets" --add-data "src\gui\assets\app_icon.ico;src\gui\assets" --add-data "src\gui\assets\splash.png;src\gui\assets" main.py
+.venv\Scripts\python.exe -m PyInstaller --noconfirm --onefile --windowed --name SubtitleTo3D --icon src\gui\assets\app_icon.ico --add-data "src\gui\assets\app_icon.png;src\gui\assets" --add-data "src\gui\assets\app_icon.ico;src\gui\assets" --add-data "src\gui\assets\splash.png;src\gui\assets" main.py
 ```
 
 That produces one `.exe`, but startup is usually slower than the folder build because the bundled files must be unpacked on launch.
@@ -110,19 +110,19 @@ Important:
 
 An Inno Setup script is included here:
 
-- `builds\installer\SubtitleTo3DAss.iss`
+- `builds\installer\SubtitleTo3D.iss`
 
 If Inno Setup 6 is installed, `build_exe.ps1` will automatically compile the installer after the EXE build.
 
 Manual installer build:
 
 ```powershell
-"C:\Program Files (x86)\Inno Setup 6\ISCC.exe" "builds\installer\SubtitleTo3DAss.iss"
+"C:\Program Files (x86)\Inno Setup 6\ISCC.exe" "builds\installer\SubtitleTo3D.iss"
 ```
 
 The installer output will be written here:
 
-- `builds\installer\output\SubtitleTo3DAss-Setup-1.0.0.exe`
+- `builds\installer\output\SubtitleTo3D-Setup-1.0.0.exe`
 
 ## Troubleshooting
 
@@ -142,7 +142,7 @@ Fix:
 
 Then run:
 
-- `dist\SubtitleTo3DAss\SubtitleTo3DAss-1.0.0.exe`
+- `dist\SubtitleTo3DAss\SubtitleTo3D-1.0.0.exe`
 
 Optional checks:
 
