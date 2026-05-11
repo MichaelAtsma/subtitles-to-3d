@@ -23,6 +23,11 @@ Desktop Python app that converts subtitle files into 3D-compatible .ASS subtitle
 - Validation and error summary panel
 - Auto output naming with optional override base name
 
+## Releases
+
+The latest release can be found [here](https://github.com/MichaelAtsma/subtitles-to-3d/releases)
+
+
 ## Install
 
 ```bash
