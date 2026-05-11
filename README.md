@@ -1,6 +1,6 @@
 # Subtitle to 3D
 
-Desktop Python app that converts subtitle files into 3D-compatible .ASS subtitles.
+Desktop Python app that converts subtitle files into 3D-compatible .ASS subtitles. You don't need Python for the Windows releases at the bottom.
 
 ## Features
 
