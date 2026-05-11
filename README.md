@@ -23,12 +23,30 @@ Desktop Python app that converts subtitle files into 3D-compatible .ASS subtitle
 - Validation and error summary panel
 - Auto output naming with optional override base name
 
+## Notes
+
+- Timing from the source subtitle file is preserved.
+- When the input is ASS, style names are preserved where possible.
+
+### Output naming
+
+Default output names are generated next to each source subtitle file:
+
+- `<input>_HSBS.ass`
+- `<input>_FSBS.ass`
+- `<input>_HOU.ass`
+
+If a file already exists, the app creates a suffixed filename (for example `_1`, `_2`) to avoid overwriting.
+
+
 ## Releases
 
 The latest release can be found [here](https://github.com/MichaelAtsma/subtitles-to-3d/releases)
 
 
-## Install
+<details><summary>Building the release yourself</summary>
+
+### Install
 
 ```bash
 python -m venv .venv
@@ -36,13 +54,13 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-## Run
+### Run
 
 ```bash
 python main.py
 ```
 
-## Build Windows EXE
+### Build Windows EXE
 
 This app can be packaged into a standalone Windows executable with PyInstaller.
 
@@ -73,7 +91,7 @@ Notes:
 - `opencv-python` can make the build fairly large. That is normal for a self-contained GUI executable.
 - If you want to share the app, send the whole `dist\SubtitleTo3D` folder, not just the `.exe` file.
 
-## One-Click Build
+### One-Click Build
 
 You can build the executable by double-clicking:
 
@@ -111,7 +129,7 @@ Important:
 - `--onefile` is not allowed when building from a `.spec` file.
 - If you pass a `.spec` file, PyInstaller expects the build shape from the spec itself (folder build in this project).
 
-## Windows Installer
+### Windows Installer
 
 An Inno Setup script is included here:
 
@@ -129,9 +147,9 @@ The installer output will be written here:
 
 - `builds\installer\output\SubtitleTo3D-Setup-1.0.0.exe`
 
-## Troubleshooting
+### Troubleshooting
 
-### EXE opens with `ModuleNotFoundError: No module named 'PyQt6'`
+#### EXE opens with `ModuleNotFoundError: No module named 'PyQt6'`
 
 Cause:
 
@@ -156,16 +174,4 @@ where pyinstaller
 .venv\Scripts\python.exe -c "import PyQt6, pysubs2, cv2; print('ok')"
 ```
 
-## Output naming
-
-Default output names are generated next to each source subtitle file:
-
-- `<input>_HSBS.ass`
-- `<input>_HOU.ass`
-
-If a file already exists, the app creates a suffixed filename (for example `_1`, `_2`) to avoid overwriting.
-
-## Notes
-
-- Timing from the source subtitle file is preserved.
-- When the input is ASS, style names are preserved where possible.
+</details>
