@@ -1,4 +1,4 @@
-# Subtitle to 3D ASS
+# Subtitle to 3D
 
 Desktop Python app that converts subtitle files into 3D-compatible .ASS subtitles.
 
