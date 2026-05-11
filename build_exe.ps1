@@ -1,6 +1,7 @@
 param(
     [switch]$SkipTests,
-    [switch]$SkipInstaller
+    [switch]$SkipInstaller,
+    [switch]$OneFile
 )
 
 $ErrorActionPreference = "Stop"
@@ -43,10 +44,32 @@ if (-not $SkipTests) {
     Invoke-CheckedCommand -Command $pythonExe -Arguments @("-m", "pytest", "-q", "tests")
 }
 
-Invoke-CheckedCommand -Command $pythonExe -Arguments @("-m", "PyInstaller", "--noconfirm", "subtitle_to_3d.spec")
+if ($OneFile) {
+    Write-Host "Building one-file executable (non-spec mode)..."
+    Invoke-CheckedCommand -Command $pythonExe -Arguments @(
+        "-m", "PyInstaller",
+        "--noconfirm",
+        "--onefile",
+        "--windowed",
+        "--name", "SubtitleTo3D-0.1.0",
+        "--icon", "src/gui/assets/app_icon.ico",
+        "--add-data", "src/gui/assets/app_icon.png;src/gui/assets",
+        "--add-data", "src/gui/assets/app_icon.ico;src/gui/assets",
+        "--add-data", "src/gui/assets/splash.png;src/gui/assets",
+        "main.py"
+    )
+} else {
+    Invoke-CheckedCommand -Command $pythonExe -Arguments @("-m", "PyInstaller", "--noconfirm", "subtitle_to_3d.spec")
+}
 
 if ($SkipInstaller) {
     Write-Host "Installer build skipped."
+    exit 0
+}
+
+if ($OneFile) {
+    Write-Host "Installer build skipped for one-file mode."
+    Write-Host "The current Inno Setup script expects the folder build output."
     exit 0
 }
 

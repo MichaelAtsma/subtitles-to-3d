@@ -95,6 +95,17 @@ If you want a single-file executable instead of a folder build, you can also run
 
 That produces one `.exe`, but startup is usually slower than the folder build because the bundled files must be unpacked on launch.
 
+Using the build script for one-file mode:
+
+```powershell
+.\build_exe.ps1 -OneFile -SkipInstaller
+```
+
+Important:
+
+- `--onefile` is not allowed when building from a `.spec` file.
+- If you pass a `.spec` file, PyInstaller expects the build shape from the spec itself (folder build in this project).
+
 ## Windows Installer
 
 An Inno Setup script is included here:
